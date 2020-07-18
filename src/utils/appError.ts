@@ -3,6 +3,7 @@ class AppError extends MongooseError {
   isOperational: boolean;
   status: string;
   statusCode: number;
+  code: number | undefined;
   constructor(message: string, statusCode: number) {
     super(message);
     this.statusCode = statusCode;

@@ -13,8 +13,9 @@ export const signup = async (body: IsignUpBody): Promise<IReturn> => {
   const { email, fullname, password } = body;
 
   if (!email || !fullname || !password) {
-    throw new Error('Missing required fields!');
+    throw new AppError('Missing required fields!', 404);
   }
+
   const user = await UserModel.create({
     email,
     fullname,
@@ -33,13 +34,13 @@ export const signin = async (body: ISign): Promise<IReturn> => {
   const { password, email } = body;
 
   if (!password || !email) {
-    throw new Error('Please provide email and password!');
+    throw new AppError('Please provide email and password!', 400);
   }
 
   const user = await UserModel.findOne({ email }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password || ''))) {
-    throw new Error('Email or Password is incorrect!');
+    throw new AppError('Email or Password is incorrect!', 400);
   }
 
   const token = generateToken(user._id);
