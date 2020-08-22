@@ -28,7 +28,7 @@ export const sendToken = (obj: IObj): void => {
     expires: new Date(Date.now() + cookiesExpires * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: true,
-    sameSite: 'strict',
+    sameSite: 'lax',
   });
 
   user.password = undefined;

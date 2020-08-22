@@ -17,7 +17,7 @@ const app: Application = express();
 /**
  * Middlewares
  */
-app.enable('trust proxy');
+app.set('trust proxy', 1);
 
 const allowedOrigins = [
   'http://localhost:3000',
