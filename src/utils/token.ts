@@ -25,7 +25,7 @@ export const sendToken = (obj: IObj): void => {
   const cookiesOptions = {
     expires: new Date(Date.now() + cookiesExpires * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: false,
+    secure: true,
   };
   if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
   res.cookie('jwtToken', token, cookiesOptions);
