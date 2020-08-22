@@ -44,10 +44,12 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "@types/compression": "^1.7.0",
     "@types/helmet": "0.0.47",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "cheerio": "^1.0.0-rc.3",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

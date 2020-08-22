@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import xss from 'xss-clean';
@@ -65,6 +66,8 @@ app.use(xss());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
+
+app.use(compression());
 
 // Routes
 
