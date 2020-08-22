@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { IUser } from '../api/users/interfaces';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 interface IObj {
   data: { user: IUser; token: string };
   res: Response;
+  req: Request;
   statusCode: number;
 }
 export const generateToken = (id: string): string => {
@@ -15,20 +16,19 @@ export const generateToken = (id: string): string => {
 };
 
 export const sendToken = (obj: IObj): void => {
-  const { data, res, statusCode } = obj;
+  const { data, res, statusCode, req } = obj;
   const { user, token } = data;
   let cookiesExpires = 10;
 
   if (process.env.JWT_COOKIE_EXPIRES_IN) {
     cookiesExpires = +process.env.JWT_COOKIE_EXPIRES_IN;
   }
-  const cookiesOptions = {
+
+  res.cookie('jwtToken', token, {
     expires: new Date(Date.now() + cookiesExpires * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: true,
-  };
-  if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
-  res.cookie('jwtToken', token, cookiesOptions);
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+  });
 
   user.password = undefined;
   res.status(statusCode).json({

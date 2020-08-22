@@ -10,6 +10,8 @@ export const signup = catchAsync(
     sendToken({
       data,
       statusCode: 200,
+      req,
+
       res,
     });
   }
@@ -22,6 +24,7 @@ export const signIn = catchAsync(
     sendToken({
       data,
       statusCode: 200,
+      req,
       res,
     });
   }
@@ -38,6 +41,8 @@ export const updatePassword = catchAsync(
     sendToken({
       data,
       statusCode: 201,
+      req,
+
       res,
     });
   }
