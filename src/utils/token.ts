@@ -28,6 +28,7 @@ export const sendToken = (obj: IObj): void => {
     expires: new Date(Date.now() + cookiesExpires * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    sameSite: 'strict',
   });
 
   user.password = undefined;
