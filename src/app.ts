@@ -16,9 +16,7 @@ const app: Application = express();
 /**
  * Middlewares
  */
-app.set('trust proxy', 1);
-
-app.use(express.json());
+app.enable('trust proxy');
 
 const allowedOrigins = [
   'http://localhost:3000',
@@ -43,6 +41,10 @@ app.use(
   })
 );
 
+app.use(express.json());
+
+app.use(cookieParser());
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -64,7 +66,6 @@ app.use(xss());
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
-app.use(cookieParser());
 // Routes
 
 app.use('/api/v1', api);
